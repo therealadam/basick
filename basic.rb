@@ -1,11 +1,9 @@
 require 'rubygems'
 require 'treetop'
 
-module Basic
-  class BinaryOperation < Treetop::Runtime::SyntaxNode
-    def eval(env={})
-      operator.apply(operand_1.eval(env), operand_2.eval(env))
-    end
+class BinaryOperation < Treetop::Runtime::SyntaxNode
+  def eval(env={})
+    operator.apply(operand_1.eval(env), operand_2.eval(env))
   end
 end
 
@@ -19,14 +17,14 @@ Treetop.load 'basic'
 # RUN
 # EOB
 # program = '4 != (x*2)'
-program = 'PRINT "OH HAI"'
+program = 'LET fx := 2 + 2'
 
 # parser = ExpressionParser.new
 parser = LanguageParser.new
 result = parser.parse(program)
 if result
   puts 'SUCCESS:'
-  puts result.eval#('x' => 3)
+  puts result.eval.inspect
   puts
   puts result.inspect
 else

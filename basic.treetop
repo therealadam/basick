@@ -1,5 +1,4 @@
 # LET var := expression
-# PRINT expression (expression+)
 # INPUT var
 # GOTO number
 # IF expression op expression THEN number
@@ -9,6 +8,16 @@
 grammar Language
   include Expression
   
+  rule program
+    statement
+  end
+  
+  rule statement
+    print
+    /
+    let
+  end
+  
   rule print
     'PRINT' space s:string {
       def eval
@@ -16,6 +25,21 @@ grammar Language
         true
       end
     }
+  end
+  
+  rule let
+    'LET' space name 
+    space ':=' space
+    expression {
+      def eval(env={})
+        env[name.text_value] = expression.eval(env)
+        env
+      end
+    }
+  end
+  
+  rule name
+    [a-z] [a-zA-Z1-9]*
   end
   
   rule string
