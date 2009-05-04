@@ -1,0 +1,33 @@
+# LET var := expression
+# PRINT expression (expression+)
+# INPUT var
+# GOTO number
+# IF expression op expression THEN number
+# SQRT(expression)
+# ABS(expression)
+
+grammar Language
+  include Expression
+  
+  rule print
+    'PRINT' space s:string {
+      def eval
+        puts s.eval
+        true
+      end
+    }
+  end
+  
+  rule string
+    '"' body:text '"' {
+      def eval
+        body.text_value
+      end
+    }
+  end
+  
+  rule text
+    [a-zA-Z\s]+
+  end
+  
+end
