@@ -1,7 +1,5 @@
 # GOTO number
 # IF expression op expression THEN number
-# SQRT(expression)
-# ABS(expression)
 
 grammar Language
   include Expression
@@ -11,7 +9,7 @@ grammar Language
   end
   
   rule statement
-    print / input / let
+    print / input / sqrt / abs / let
   end
   
   rule print
@@ -30,6 +28,22 @@ grammar Language
       def eval(env={})
         env[name.text_value] = expression.eval(env)
         env
+      end
+    }
+  end
+  
+  rule sqrt
+    'SQRT' space expression {
+      def eval(env={})
+        Math.sqrt(expression.eval)
+      end
+    }
+  end
+  
+  rule abs
+    'ABS' space expression {
+      def eval(env={})
+        Integer(expression.eval).abs
       end
     }
   end

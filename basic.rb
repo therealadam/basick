@@ -12,7 +12,7 @@ Treetop.load 'basic'
 
 if __FILE__ == $PROGRAM_NAME
   parser = LanguageParser.new
-  result = parser.parse('INPUT foo')
+  result = parser.parse('ABS -14')
   if result
     puts 'SUCCESS:'
     puts result.eval.inspect
