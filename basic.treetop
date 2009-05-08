@@ -1,5 +1,3 @@
-# LET var := expression
-# INPUT var
 # GOTO number
 # IF expression op expression THEN number
 # SQRT(expression)
@@ -13,9 +11,7 @@ grammar Language
   end
   
   rule statement
-    print
-    /
-    let
+    print / input / let
   end
   
   rule print
@@ -38,6 +34,16 @@ grammar Language
     }
   end
   
+  rule input
+    'INPUT' space name {
+      def eval(env={})
+        # AKK: actually read input
+        env[name.text_value] = 'GET OFF MY LAWN'
+        env
+      end
+    }
+  end
+  
   rule name
     [a-z] [a-zA-Z1-9]*
   end
@@ -52,6 +58,10 @@ grammar Language
   
   rule text
     [a-zA-Z\s]+
+  end
+  
+  rule newline
+    [\n\r]+
   end
   
 end
