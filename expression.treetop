@@ -125,7 +125,7 @@ grammar Expression
   end
   
   rule space
-    ' '*
+    [\s]*
   end
   
 end

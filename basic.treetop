@@ -5,11 +5,19 @@ grammar Language
   include Expression
   
   rule program
-    statement
+    statement+ {
+      def eval(env={})
+        elements.inject(env) { |env, el| el.eval(env) }
+      end
+    }
   end
   
   rule statement
-    print / input / sqrt / abs / let
+    s:(print / input / sqrt / abs / let) (space / newline) {
+      def eval(env={})
+        s.eval(env)
+      end
+    }
   end
   
   rule print

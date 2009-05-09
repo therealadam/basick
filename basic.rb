@@ -12,12 +12,18 @@ Treetop.load 'basic'
 
 if __FILE__ == $PROGRAM_NAME
   parser = LanguageParser.new
-  result = parser.parse('ABS -14')
+  program = <<-EOP
+    LET a := 2 + 2
+    LET b := 4 + 4
+    
+    SQRT 9
+  EOP
+  result = parser.parse(program.strip)
   if result
     puts 'SUCCESS:'
-    puts result.eval.inspect
-    puts
     puts result.inspect
+    puts
+    puts result.eval.inspect
   else
     puts 'ERROR:'
     puts parser.terminal_failures.join("\n")
