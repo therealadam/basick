@@ -1,6 +1,3 @@
-# GOTO number
-# IF expression op expression THEN number
-
 grammar Language
   include Expression
   
