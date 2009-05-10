@@ -7,16 +7,28 @@ class BinaryOperation < Treetop::Runtime::SyntaxNode
   end
 end
 
-Treetop.load 'expression'
-Treetop.load 'basic'
+class PrintNode < Treetop::Runtime::SyntaxNode
+  
+  @@output = nil
+  
+  def self.output=(io)
+    @@output = io
+  end
+  
+  def eval(env={})
+    @@output.write(s.eval)
+    env
+  end
+end
+
+Treetop.load File.join(File.dirname(__FILE__), 'expression')
+Treetop.load File.join(File.dirname(__FILE__), 'basic')
 
 if __FILE__ == $PROGRAM_NAME
   parser = LanguageParser.new
+  PrintNode.output = STDOUT
   program = <<-EOP
-    LET a := 2 + 2
-    LET b := 4 + 4
-    
-    SQRT 9
+    PRINT "Hi"
   EOP
   result = parser.parse(program.strip)
   if result

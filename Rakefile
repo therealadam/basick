@@ -1,9 +1,15 @@
-task :parsers do
-  tt FileList['*.treetop']
+require 'cucumber/rake/task'
+require 'rake/clean'
+
+CLOBBER << FileList['*_parser.rb']
+
+Cucumber::Rake::Task.new do |t|
+  t.cucumber_opts = "--format pretty"
 end
 
-task :clean do
-  rm FileList['*_parser.rb']
+desc 'Generate Ruby from Treetop for sleuthing purposes.'
+task :parsers do
+  tt FileList['*.treetop']
 end
 
 def tt(files)

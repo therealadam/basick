@@ -18,12 +18,7 @@ grammar Language
   end
   
   rule print
-    'PRINT' space s:string {
-      def eval
-        puts s.eval
-        true
-      end
-    }
+    'PRINT' space s:string <PrintNode>
   end
   
   rule let
@@ -76,7 +71,7 @@ grammar Language
   end
   
   rule text
-    [a-zA-Z\s]+
+    [a-zA-Z\s!.?]+
   end
   
   rule newline
