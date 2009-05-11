@@ -7,13 +7,13 @@ Given /^a program$/ do |source|
   @output = StringIO.new
   @source = source
   
-  @parser = LanguageParser.new
   PrintNode.output = @output
+  @parser = LanguageParser.new
 end
 
 Then /^the program should parse$/ do
   result = @parser.parse(@source)
-  puts result.inspect
+  result.eval({})
   unless result
     puts 'ERROR:'
     puts @parser.terminal_failures.join("\n")
